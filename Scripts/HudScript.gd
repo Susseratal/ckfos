@@ -14,3 +14,14 @@ func UpdateHealthUI(maxHealth, newHealth):
 		
 func ToggleInteractPrompt(newVisibility):
 	interactPrompt.visible = newVisibility
+
+func UpdateInteractPrompt(newMode):
+	match newMode:
+		0:
+			interactPrompt.texture = load("res://Assets/0_Grip.png")
+		1:
+			interactPrompt.texture = load("res://Assets/1_Point.png")
+		2:
+			interactPrompt.texture = load("res://Assets/2_insult.png")
+		_:
+			pass

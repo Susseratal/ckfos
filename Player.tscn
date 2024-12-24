@@ -110,7 +110,7 @@ grow_vertical = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Play" type="Button" parent="CharacterBody3D/Head/HudCanvas/PauseMenu/VBoxContainer"]
+[node name="Resume" type="Button" parent="CharacterBody3D/Head/HudCanvas/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Resume"
@@ -119,3 +119,6 @@ text = "Resume"
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Quit"
+
+[connection signal="pressed" from="CharacterBody3D/Head/HudCanvas/PauseMenu/VBoxContainer/Resume" to="CharacterBody3D/Head/HudCanvas/PauseMenu" method="_on_play_pressed"]
+[connection signal="pressed" from="CharacterBody3D/Head/HudCanvas/PauseMenu/VBoxContainer/Quit" to="CharacterBody3D/Head/HudCanvas/PauseMenu" method="_on_quit_pressed"]

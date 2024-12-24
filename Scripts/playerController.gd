@@ -18,16 +18,19 @@ var b_inputProcessed = false
 var b_mouseCaptured = false
 var b_paused = false
 var currentInteractRef: Object = null ## static typing my beloved
+var i_interactMode: int = 0
 
 func SetMouseCapture(b_newCaptured):
 	if b_newCaptured == true:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		b_mouseCaptured = true
 		hud.visible = true
+		menu.visible = false
 	elif b_newCaptured == false:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		b_mouseCaptured = false
 		hud.visible = false
+		menu.visible = true
 
 func UpdateHealth(healthDelta):
 	i_health = (i_health + healthDelta)
@@ -59,20 +62,35 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		
+
 	elif Input.is_action_just_pressed("Pause"):
 		TogglePause()
-		
+
+### activate interaction
 	elif Input.is_action_just_pressed("Interact"):
 		if currentInteractRef != null:
 			pass
 		else:
 			pass
 			
+			
+	### interaction modes
+	elif Input.is_action_just_pressed("SetInputMode1"):
+		hud.UpdateInteractPrompt(0)
+		i_interactMode = 0
+		
+	elif Input.is_action_just_pressed("SetInputMode2"):
+		hud.UpdateInteractPrompt(1)
+		i_interactMode = 1
+		
+	elif Input.is_action_just_pressed("SetInputMode3"):
+		hud.UpdateInteractPrompt(2)
+		i_interactMode = 2
 	
+	
+	## interaction collider
 	if lineTrace.get_collider() == null: 
 		hud.ToggleInteractPrompt(false)
 		currentInteractRef = null
