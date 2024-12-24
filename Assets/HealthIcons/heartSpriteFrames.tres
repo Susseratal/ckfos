@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://b14uegec5vjhg"]
+
+[ext_resource type="Texture2D" uid="uid://de16h3a3sls1t" path="res://Assets/HealthIcons/heartFullScale.png" id="1_wourq"]
+[ext_resource type="Texture2D" uid="uid://dntfjrngg572m" path="res://Assets/HealthIcons/heartHalfScale.png" id="2_erp31"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wourq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_erp31")
+}],
+"loop": true,
+"name": &"HeartBeat",
+"speed": 2.0
+}]
