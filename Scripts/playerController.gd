@@ -50,12 +50,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		cam.rotate_x(-event.relative.y * SENSITIVITY)
 		cam.rotation.x = clamp(cam.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 	
-	elif event is InputEventKey:
-		var keycode = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode)
-		if(OS.get_keycode_string(keycode) == "J"): # processing twice because god hates me
-			UpdateHealth(-10)
-		elif(OS.get_keycode_string(keycode) == "K"):
-			UpdateHealth(10)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.	
@@ -71,7 +65,18 @@ func _physics_process(delta: float) -> void:
 ### activate interaction
 	elif Input.is_action_just_pressed("Interact"):
 		if currentInteractRef != null:
-			pass
+			match i_interactMode:
+				0:
+					currentInteractRef.Grab(self)
+				1:
+					currentInteractRef.Identify(self)
+				2:
+					currentInteractRef.Insult(self)
+				3:
+					currentInteractRef.Speak(self)
+				4:
+					currentInteractRef.Kick(self)
+					
 		else:
 			pass
 			
@@ -88,7 +93,10 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("SetInputMode3"):
 		hud.UpdateInteractPrompt(2)
 		i_interactMode = 2
-	
+		
+	elif Input.is_action_just_pressed("SetInputMode4"):
+		hud.UpdateInteractPrompt(3)
+		i_interactMode = 3
 	
 	## interaction collider
 	if lineTrace.get_collider() == null: 
@@ -97,6 +105,7 @@ func _physics_process(delta: float) -> void:
 		pass
 	elif lineTrace.get_collider().get_parent().is_in_group("Interactive"):
 		hud.ToggleInteractPrompt(true)
+		currentInteractRef = lineTrace.get_collider().get_parent()
 	else:
 		hud.ToggleInteractPrompt(false)
 		currentInteractRef = null
