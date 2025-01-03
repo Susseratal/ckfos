@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://devrhpbtased7"]
+
+[ext_resource type="Script" path="res://Scripts/npc_spawner.gd" id="1_ygx5r"]
+
+[node name="NpcSpawner" type="Node3D"]
+script = ExtResource("1_ygx5r")

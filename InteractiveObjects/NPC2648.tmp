@@ -18,12 +18,10 @@ mesh = SubResource("CapsuleMesh_qtluq")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 1.05345, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05345, 0)
 shape = SubResource("ConvexPolygonShape3D_iilmh")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
-avoidance_enabled = true
-use_3d_avoidance = true
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.960487, 0.000756423, 0.96048, 1)

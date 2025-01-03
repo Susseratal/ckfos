@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu2m6mauukdmw"]
+[gd_scene load_steps=9 format=3 uid="uid://cu2m6mauukdmw"]
 
 [ext_resource type="SpriteFrames" uid="uid://b14uegec5vjhg" path="res://Assets/HealthIcons/heartSpriteFrames.tres" id="1_14eod"]
 [ext_resource type="Script" path="res://Scripts/playerController.gd" id="1_45py2"]
 [ext_resource type="Texture2D" uid="uid://ccsrj0porhrac" path="res://Assets/0_Grip.png" id="2_5lm6g"]
 [ext_resource type="Script" path="res://Scripts/HudScript.gd" id="2_7j2qc"]
-[ext_resource type="PackedScene" uid="uid://b1ed7xfngqmh4" path="res://Pistol.tscn" id="2_l1ggr"]
-[ext_resource type="Texture2D" uid="uid://bwy6fwlsvh5li" path="res://Assets/bullet.png" id="6_n65v7"]
+[ext_resource type="ArrayMesh" uid="uid://cvdevypfln5hv" path="res://Assets/gun.obj" id="2_on7l3"]
 [ext_resource type="Script" path="res://Scripts/PauseMenuScript.gd" id="6_r6sw0"]
 [ext_resource type="Script" path="res://Scripts/dialogueBoxScript.gd" id="7_5h433"]
 
@@ -27,16 +26,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02079, 0)
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head"]
 fov = 90.0
 
-[node name="InteractTrace" type="RayCast3D" parent="CharacterBody3D/Head/Camera3D"]
+[node name="LineTrace" type="RayCast3D" parent="CharacterBody3D/Head/Camera3D"]
 target_position = Vector3(0, 0, -3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 
-[node name="Gun" parent="CharacterBody3D/Head/Camera3D" instance=ExtResource("2_l1ggr")]
-transform = Transform3D(-1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, 0.46443, -0.224146, -0.724204)
-
-[node name="GunTrace" type="RayCast3D" parent="CharacterBody3D/Head/Camera3D"]
-target_position = Vector3(0, 0, -10)
-debug_shape_custom_color = Color(0, 0.741222, 0.434325, 1)
+[node name="gun" type="MeshInstance3D" parent="CharacterBody3D/Head/Camera3D"]
+transform = Transform3D(0.0517638, 0, -0.193185, 0, 0.2, 0, 0.193185, 0, 0.0517638, 0.407121, -0.157314, -0.51847)
+visible = false
+mesh = ExtResource("2_on7l3")
 
 [node name="HudCanvas" type="CanvasLayer" parent="CharacterBody3D/Head"]
 
@@ -56,21 +53,6 @@ sprite_frames = ExtResource("1_14eod")
 animation = &"HeartBeat"
 centered = false
 offset = Vector2(20, 20)
-
-[node name="Reticle" type="ColorRect" parent="CharacterBody3D/Head/HudCanvas/HUD"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = -2.5
-offset_right = 2.5
-offset_bottom = 2.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="interactPrompt" type="TextureRect" parent="CharacterBody3D/Head/HudCanvas/HUD"]
 visible = false
@@ -114,24 +96,9 @@ offset_left = 50.0
 offset_top = 300.0
 offset_right = 200.0
 offset_bottom = 350.0
-theme_override_colors/font_color = Color(0, 0.822991, 0, 1)
+theme_override_colors/font_color = Color(0, 0.629484, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "$0"
-
-[node name="AmmoCounter" type="Label" parent="CharacterBody3D/Head/HudCanvas/HUD"]
-layout_mode = 0
-offset_left = 70.0
-offset_top = 350.0
-offset_right = 220.0
-offset_bottom = 400.0
-theme_override_colors/font_color = Color(1, 0.521942, 0.184486, 1)
-theme_override_font_sizes/font_size = 36
-text = "0"
-
-[node name="Bullet" type="Sprite2D" parent="CharacterBody3D/Head/HudCanvas/HUD"]
-position = Vector2(60, 375)
-scale = Vector2(0.0595703, 0.0595703)
-texture = ExtResource("6_n65v7")
 
 [node name="PauseMenu" type="Control" parent="CharacterBody3D/Head/HudCanvas"]
 visible = false
